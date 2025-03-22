@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MyController;
 use App\Http\Controllers\ProductController;
@@ -25,15 +26,6 @@ Route::get('/profilelkl01923021oaskdoa', function () {
     return "Profile";
 })->name('profile');
 
-//Nhóm đường dẫn
-Route::prefix('admin')->group(function () {
-    Route::get('/users', function () {
-        return "Danh sách users";
-    });
-    Route::get('/users/create', function () {
-        return "Tạo mới user";
-    });
-});
 
 //Sử dụng controller trong route
 Route::get('/products', [ProductController::class,          'index']);
@@ -44,3 +36,7 @@ Route::get('/category/{id}', [CategoryController::class, 'list'])->name('categor
 
 //Sử dụng resource 
 Route::resource('/my', MyController::class);
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('/products', AdminProductController::class);
+});
